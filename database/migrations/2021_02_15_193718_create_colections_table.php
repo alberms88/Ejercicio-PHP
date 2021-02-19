@@ -16,6 +16,8 @@ class CreateColectionsTable extends Migration
         Schema::create('colections', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('namecolection');
+
         });
     }
 

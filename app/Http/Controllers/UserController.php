@@ -17,7 +17,7 @@ class userController extends Controller
 
         $response = "";
         
-        //Leo el contenido de la petición
+        //cojo los datos del usuario
         
         $data = $request->getContent();
 
@@ -25,9 +25,10 @@ class userController extends Controller
         
         $data = json_decode($data);
 
-        //Si hay un json válido, crear el soldado
+        //Si hay un json válido, creo el usuario
         
         if($data){
+            
             $user = new User();
 
             //valido datos antes de crear el usuario
@@ -39,7 +40,7 @@ class userController extends Controller
 
             try{
                 $user->save();
-                $response = "OK";
+                $response = "OK, Se creo el usuario correctamente";
             }catch(\Exception $e){
                 $response = $e->getMessage();
             }
@@ -71,8 +72,13 @@ class userController extends Controller
                     if(Hash::check($data->password, $user->password)){
 
                         $key = "kjsfdgiueqrbq39h9ht398erubvfubudfivlebruqergubi";
+
+                        $payload = array(
+                            'rol' => $user->rol,
+                            'id' => $user->id);
+                                                
                         
-                        $token = JWT::encode($data->email,$key);
+                        $token = JWT::encode($payload,$key);
 
                         $user->api_token = $token;
 

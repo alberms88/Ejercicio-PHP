@@ -6,26 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateCardsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
-        Schema::create('_cards', function (Blueprint $table) {
+        Schema::dropIfExists('cards');
+
+        Schema::create('cards', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('name');
+            $table->text('Description');
+            $table->string('colection');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
-        Schema::dropIfExists('_cards');
+        Schema::dropIfExists('cards');
     }
 }
